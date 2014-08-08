@@ -28,7 +28,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = JmxWebApplication.class)
-public class SpringTestSampleSimpleApplicationTests {
+public class JmxWebApplicationTest {
 
 	@Test
 	public void testContextLoads() throws Exception {
