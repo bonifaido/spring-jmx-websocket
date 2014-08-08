@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -jar target/spring-boots-1.0-SNAPSHOT.jar

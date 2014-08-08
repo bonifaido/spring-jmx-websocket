@@ -13,9 +13,9 @@
     <name>Spring Boot Simple Sample</name>
     <version>1.0-SNAPSHOT</version>
     <properties>
-<!--         <java.version>1.8</java.version>
+        <java.version>1.8</java.version>
         <tomcat.version>8.0.8</tomcat.version>
- -->    </properties>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
