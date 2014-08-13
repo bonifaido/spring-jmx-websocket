@@ -6,13 +6,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.management.ObjectName;
 import java.lang.management.ManagementFactory;
+import java.util.Set;
 
 @RestController
 public class MBeanController {
 
     @RequestMapping("jmx")
-    public java.util.Set<javax.management.ObjectName> objectNames() {
+    public Set<ObjectName> objectNames() {
         return ManagementFactory.getPlatformMBeanServer().queryNames(null, null);
     }
 
