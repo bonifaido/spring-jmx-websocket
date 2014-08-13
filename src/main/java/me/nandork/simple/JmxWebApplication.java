@@ -1,6 +1,6 @@
 package me.nandork.simple;
 
-import me.nandork.simple.controller.WebSocketController;
+import me.nandork.simple.controller.EchoWebSocketHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,6 +20,6 @@ public class JmxWebApplication implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new WebSocketController(), "/ws");
+        registry.addHandler(new EchoWebSocketHandler(), "/ws");
     }
 }

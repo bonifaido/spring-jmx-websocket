@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script>
+        var ws = null
+
+        function log(m) { $("#log").append("<br/>"+m) }
+
+        function connect() {
+            ws = new WebSocket("ws://" + window.location.host + "/ws")
+            ws.onopen = function() { log("WebSocket connection established") }
+            ws.onmessage = function(e) { log(e.data) }
+        }
+
+        function send() {
+            ws.send($("#message").val())
+        }
+
+        connect()
+    </script>
+</head>
+<body>
+
+<input id="message"/>
+<button id="send" onclick="send();">Send</button>
+
+<div id="log">
+</div>
+
+</body>
+</html>
