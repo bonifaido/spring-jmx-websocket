@@ -13,6 +13,7 @@
             ws = new WebSocket("ws://" + window.location.host + "/ws")
             ws.onopen = function() { log("WebSocket connection established") }
             ws.onmessage = function(e) { log(e.data) }
+            ws.onerror = function(e) { log(e) }
         }
 
         function send() {
