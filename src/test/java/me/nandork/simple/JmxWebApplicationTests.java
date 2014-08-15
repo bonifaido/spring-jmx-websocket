@@ -27,9 +27,13 @@ public class JmxWebApplicationTests {
     @Value("${local.server.port}")
     int port;
 
+    <T> ResponseEntity<T> get(String resourcePath, Class<T> responseType) {
+        return restTemplate.getForEntity("http://localhost:" + port + resourcePath, responseType);
+    }
+
     @Test
-    public void testContextLoads() throws Exception {
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://localhost:" + port + "/jmx", String.class);
+    public void testContextJmx() throws Exception {
+        ResponseEntity<String> responseEntity = get("/jmx", String.class);
 
         assertFalse(responseEntity.getBody().isEmpty());
     }
