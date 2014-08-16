@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dserver.port=$PORT -jar target/spring-jmx-websocket-1.0-SNAPSHOT.jar
+web: java $JAVA_OPTS -Dserver.port=$PORT -jar target/spring-boots-1.0-SNAPSHOT.jar
