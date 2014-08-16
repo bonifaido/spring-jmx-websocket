@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
-    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <title>Echo</title>
+    <link rel='stylesheet' href='/webjars/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <script src="/webjars/jquery/2.1.1/jquery.min.js"></script>
     <script>
         var ws = null
 
@@ -21,15 +22,22 @@
         }
 
         connect()
+
     </script>
 </head>
 <body>
+<div class="container">
 
-<input id="message"/>
-<button id="send" onclick="send();">Send</button>
+    <h2>WebSocket Echo with spring-boot</h2>
 
-<div id="log">
+    <form class="form-inline" role="form">
+        <input id="message" type="text" class="form-control" placeholder="Message input">
+        <button type="button" class="btn btn-primary" onclick="send();">Send</button>
+    </form>
+
+    <div id="log">
+    </div>
+
 </div>
-
 </body>
 </html>

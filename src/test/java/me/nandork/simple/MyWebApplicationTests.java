@@ -14,13 +14,13 @@ import org.springframework.web.client.RestTemplate;
 import static org.junit.Assert.assertFalse;
 
 /**
- * Tests for {@link JmxWebApplication}.
+ * Tests for {@link MyWebApplication}.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = JmxWebApplication.class)
+@SpringApplicationConfiguration(classes = MyWebApplication.class)
 @WebAppConfiguration
 @IntegrationTest("server.port:0")
-public class JmxWebApplicationTests {
+public class MyWebApplicationTests {
 
     RestTemplate restTemplate = new TestRestTemplate();
 

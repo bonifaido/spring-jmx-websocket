@@ -15,9 +15,9 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @ComponentScan
 @EnableWebSocket
 @EnableScheduling()
-public class JmxWebApplication implements WebSocketConfigurer {
+public class MyWebApplication implements WebSocketConfigurer {
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(JmxWebApplication.class, args);
+        SpringApplication.run(MyWebApplication.class, args);
     }
 
     @Override
