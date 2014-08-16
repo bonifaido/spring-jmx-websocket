@@ -1,11 +1,11 @@
 package me.nandork.simple.service;
 
-import me.nandork.simple.repository.Article;
+import me.nandork.simple.model.Article;
+import me.nandork.simple.parser.ArticleParser;
 import me.nandork.simple.repository.ArticleRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Component
 @ManagedResource
@@ -32,12 +30,8 @@ public class WebCrawler {
     @Autowired
     ArticleRepository articleRepository;
 
-    // This can parse index.hu
-    Function<Element, Article> mapper = article -> {
-        String title = article.select("a").text();
-        String text = article.select("span").text();
-        return new Article(title, text);
-    };
+    @Autowired
+    ArticleParser articleParser;
 
     @ManagedOperation
     @Scheduled(fixedDelay = 3600000)
@@ -45,16 +39,12 @@ public class WebCrawler {
 
         Document doc = Jsoup.connect(url).get();
 
-        Elements htmlArticles = doc.body().select("article");
+        Element body = doc.body();
 
-        List<Article> articles = parseHtmlArticles(htmlArticles);
+        List<Article> articles = articleParser.apply(body);
 
         articleRepository.save(articles);
 
         logger.info("Saved {} articles", articles.size());
-    }
-
-    private List<Article> parseHtmlArticles(Elements htmlArticles) {
-        return htmlArticles.stream().map(mapper).collect(Collectors.toList());
     }
 }

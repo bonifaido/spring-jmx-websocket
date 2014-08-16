@@ -1,6 +1,6 @@
 package me.nandork.simple.controller;
 
-import me.nandork.simple.repository.Article;
+import me.nandork.simple.model.Article;
 import me.nandork.simple.repository.ArticleRepository;
 import org.elasticsearch.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
