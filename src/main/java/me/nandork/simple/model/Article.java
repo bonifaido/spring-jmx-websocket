@@ -6,17 +6,18 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @Document(indexName = "article")
 public class Article {
 
-//    private String id;
     @Id
     private String title;
     private String text;
+    private String href;
 
     public Article() {
     }
 
-    public Article(String title, String text) {
+    public Article(String title, String text, String href) {
         this.title = title;
         this.text = text;
+        this.href = href;
     }
 
 //    public String getId() {
@@ -43,12 +44,20 @@ public class Article {
         this.text = text;
     }
 
+    public String getHref() {
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
+    }
+
     @Override
     public String toString() {
         return "Article{" +
-//                "id='" + id + '\'' +
-                ", title='" + title + '\'' +
+                "title='" + title + '\'' +
                 ", text='" + text + '\'' +
+                ", href='" + href + '\'' +
                 '}';
     }
 }

@@ -24,7 +24,7 @@
                 </div>
                 <div id="collapse${article_index}" class="panel-collapse collapse">
                     <div class="panel-body">
-                        ${article.text}
+                        <a href="${article.href}">${article.text}</a>
                     </div>
                 </div>
             </div>
