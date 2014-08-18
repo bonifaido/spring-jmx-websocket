@@ -11,8 +11,7 @@
     </parent>
 
     <groupId>me.nandork</groupId>
-    <artifactId>spring-boots</artifactId>
-    <name>WebSockets with Spring Boot</name>
+    <artifactId>try-spring-boot</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
