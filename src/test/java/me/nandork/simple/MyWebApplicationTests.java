@@ -32,8 +32,8 @@ public class MyWebApplicationTests {
     }
 
     @Test
-    public void testContextJmx() throws Exception {
-        ResponseEntity<String> responseEntity = get("/jmx", String.class);
+    public void testArticlesPage() throws Exception {
+        ResponseEntity<String> responseEntity = get("/articles", String.class);
 
         assertFalse(responseEntity.getBody().isEmpty());
     }
