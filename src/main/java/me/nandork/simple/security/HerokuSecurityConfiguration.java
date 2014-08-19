@@ -12,12 +12,12 @@ public class HerokuSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     HerokuUserDetailsAuthenticationProvider herokuUserDetailsAuthenticationProvider;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .anyRequest().authenticated().and()
-                .httpBasic();
-    }
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//                .anyRequest().authenticated().and()
+//                .httpBasic();
+//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
