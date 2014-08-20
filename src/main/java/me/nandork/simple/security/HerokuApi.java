@@ -6,9 +6,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
@@ -20,7 +20,7 @@ class HerokuApi {
     private final RestTemplate restTemplate = new RestTemplate();
     private String authorization;
 
-    public List<Collaborator> getCollaborators(String appName) throws IOException {
+    public List<Collaborator> getCollaborators(String appName) {
         HttpHeaders httpHeaders = newHttpHeaders();
 
         ResponseEntity<Collaborator[]> entity = get("/apps/" + appName + "/collaborators", Collaborator[].class, httpHeaders);
@@ -28,10 +28,10 @@ class HerokuApi {
         if (entity.getStatusCode().is2xxSuccessful()) {
             return Arrays.asList(entity.getBody());
         }
-        throw new IOException(entity.getStatusCode().getReasonPhrase());
+        throw new HttpClientErrorException(entity.getStatusCode());
     }
 
-    public void authenticate(String username, String password) throws IOException {
+    public void authenticate(String username, String password) {
         HttpHeaders httpHeaders = newHttpHeaders();
         String authorization = authorizationFromUsernamePassword(username, password);
         httpHeaders.add("Authorization", authorization);
@@ -41,7 +41,7 @@ class HerokuApi {
         if (entity.getStatusCode().is2xxSuccessful()) {
             this.authorization = authorizationFromToken(entity);
         } else {
-            throw new IOException(entity.getStatusCode().getReasonPhrase());
+            throw new HttpClientErrorException(entity.getStatusCode());
         }
     }
 
