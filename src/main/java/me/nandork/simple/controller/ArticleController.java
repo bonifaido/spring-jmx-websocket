@@ -2,15 +2,15 @@ package me.nandork.simple.controller;
 
 import me.nandork.simple.model.Article;
 import me.nandork.simple.repository.ArticleRepository;
-import org.elasticsearch.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+//@Controller
 public class ArticleController {
 
     @Autowired
@@ -18,7 +18,11 @@ public class ArticleController {
 
     @ModelAttribute("articles")
     public List<Article> getArticles() {
-        return Lists.newArrayList(articleRepository.findAll());
+        ArrayList<Article> articles = new ArrayList<>();
+        for (Article article : articleRepository.findAll()) {
+            articles.add(article);
+        }
+        return articles;
     }
 
     @RequestMapping("/articles")

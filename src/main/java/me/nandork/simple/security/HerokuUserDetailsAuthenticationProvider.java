@@ -18,7 +18,7 @@ import java.util.List;
 @Component
 class HerokuUserDetailsAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
-    @Value("${heroku.app.name}")
+    @Value("${heroku.app.name: try-spring-boot}")
     private String appName;
 
     @Override

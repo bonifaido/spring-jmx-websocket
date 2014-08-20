@@ -2,13 +2,18 @@ package me.nandork.simple.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+/**
+ * See: http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#multiple-httpsecurity
+ */
 @Configuration
 @EnableWebSecurity
+@Order(1)
 public class HerokuSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -16,8 +21,10 @@ public class HerokuSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .anyRequest().authenticated().and()
+        http.antMatcher("/manage/**")
+                .authorizeRequests()
+                .anyRequest().authenticated()
+                .and()
                 .httpBasic();
     }
 

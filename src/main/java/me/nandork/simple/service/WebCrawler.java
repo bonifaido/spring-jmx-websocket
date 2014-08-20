@@ -18,8 +18,8 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.List;
 
-@Component
-@ManagedResource
+//@Component
+//@ManagedResource
 public class WebCrawler {
 
     final Logger logger = LoggerFactory.getLogger(getClass());

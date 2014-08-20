@@ -1,13 +1,16 @@
 package me.nandork.simple.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-@Document(indexName = "article")
+@Entity
 public class Article {
 
     @Id
     private String title;
+
+    @Column(length = 2048)
     private String text;
     private String href;
 
