@@ -1,16 +1,8 @@
 package me.nandork.simple.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
 public class Article {
 
-    @Id
     private String title;
-
-    @Column(length = 2048)
     private String text;
     private String href;
 
