@@ -18,7 +18,7 @@ import java.util.List;
 @Component
 class HerokuUserDetailsAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
-    @Value("${heroku.app.name: try-spring-boot}")
+    @Value("${heroku.app.name:try-spring-boot}")
     private String appName;
 
     @Override
@@ -41,7 +41,7 @@ class HerokuUserDetailsAuthenticationProvider extends AbstractUserDetailsAuthent
 
         for (Collaborator collaborator : collaborators) {
             if (collaborator.getUser().getEmail().equals(username)) {
-                return new User(username, password, AuthorityUtils.createAuthorityList("COLLABORATOR"));
+                return new User(username, password, AuthorityUtils.createAuthorityList("ROLE_COLLABORATOR"));
             }
         }
 

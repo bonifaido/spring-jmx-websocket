@@ -23,7 +23,7 @@ public class HerokuSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/manage/**")
                 .authorizeRequests()
-                .anyRequest().authenticated()
+                .anyRequest().hasRole("COLLABORATOR")
                 .and()
                 .httpBasic();
     }

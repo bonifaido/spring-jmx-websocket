@@ -25,6 +25,6 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(new InMemoryUserDetailsManager(Arrays.asList(new User("nundi", "nundi01", AuthorityUtils.createAuthorityList("USER")))));
+        auth.userDetailsService(new InMemoryUserDetailsManager(Arrays.asList(new User("nundi", "nundi01", AuthorityUtils.createAuthorityList("ROLE_USER")))));
     }
 }
