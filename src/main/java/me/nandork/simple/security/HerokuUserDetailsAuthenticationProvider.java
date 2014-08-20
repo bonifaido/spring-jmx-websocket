@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.List;
 
 @Component
@@ -35,7 +34,7 @@ class HerokuUserDetailsAuthenticationProvider extends AbstractUserDetailsAuthent
             HerokuApi herokuApi = new HerokuApi();
             herokuApi.authenticate(username, password);
             collaborators = herokuApi.getCollaborators(appName);
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new AuthenticationServiceException(e.getMessage(), e);
         }
 
