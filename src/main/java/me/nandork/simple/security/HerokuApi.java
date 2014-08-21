@@ -1,7 +1,6 @@
 package me.nandork.simple.security;
 
 import me.nandork.simple.security.model.Authorization;
-import me.nandork.simple.security.model.Collaborator;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -9,9 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.Base64;
-import java.util.List;
 
 class HerokuApi {
 
@@ -20,15 +17,12 @@ class HerokuApi {
     private final RestTemplate restTemplate = new RestTemplate();
     private String authorization;
 
-    public List<Collaborator> getCollaborators(String appName) {
+    public boolean isCollaborator(String appName, String username) {
         HttpHeaders httpHeaders = newHttpHeaders();
 
-        ResponseEntity<Collaborator[]> entity = get("/apps/" + appName + "/collaborators", Collaborator[].class, httpHeaders);
+        ResponseEntity<String> entity = get("/apps/" + appName + "/collaborators/" + username, String.class, httpHeaders);
 
-        if (entity.getStatusCode().is2xxSuccessful()) {
-            return Arrays.asList(entity.getBody());
-        }
-        throw new HttpClientErrorException(entity.getStatusCode());
+        return entity.getStatusCode().is2xxSuccessful();
     }
 
     public void authenticate(String username, String password) {

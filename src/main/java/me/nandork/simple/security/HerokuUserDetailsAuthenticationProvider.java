@@ -1,6 +1,5 @@
 package me.nandork.simple.security;
 
-import me.nandork.simple.security.model.Collaborator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,8 +10,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 class HerokuUserDetailsAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
@@ -29,19 +26,14 @@ class HerokuUserDetailsAuthenticationProvider extends AbstractUserDetailsAuthent
 
         String password = authentication.getCredentials().toString();
 
-        List<Collaborator> collaborators;
         try {
             HerokuApi herokuApi = new HerokuApi();
             herokuApi.authenticate(username, password);
-            collaborators = herokuApi.getCollaborators(appName);
-        } catch (Exception e) {
-            throw new AuthenticationServiceException(e.getMessage(), e);
-        }
-
-        for (Collaborator collaborator : collaborators) {
-            if (collaborator.getUser().getEmail().equals(username)) {
+            if (herokuApi.isCollaborator(appName, username)) {
                 return new User(username, password, AuthorityUtils.createAuthorityList("ROLE_COLLABORATOR"));
             }
+        } catch (Exception e) {
+            throw new AuthenticationServiceException(e.getMessage(), e);
         }
 
         throw new UsernameNotFoundException(username);
