@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 class HerokuUserDetailsAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
-    @Value("${heroku.app.name:try-spring-boot}")
+    @Value("${heroku.app.name}")
     private String appName;
 
     @Override
