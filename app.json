@@ -1,1 +1,7 @@
-{}
+{
+  "env": {
+    "HEROKU_APP_NAME": {
+      "description": "The name of the application, necessary for using the Heroku API"
+    }
+  }
+}
