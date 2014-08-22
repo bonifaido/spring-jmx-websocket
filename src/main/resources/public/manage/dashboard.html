@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <script src="/Chart.min.js"></script>
+    <script src="/webjars/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 align="center">Dashboard</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Heap</h3>
+            <canvas id="heap" height="400" width="400"></canvas>
+        </div>
+        <div class="col-md-6">
+            <h3>Threads</h3>
+            <canvas id="threads" height="400" width="400"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    function now() {
+        return new Date().toTimeString().slice(0, 8)
+    }
+
+    var lineChartData = {
+        labels : [],
+        datasets : [
+            {
+                label: "Heap dataset",
+                fillColor : "rgba(220,220,220,0.2)",
+                strokeColor : "rgba(220,220,220,1)",
+                pointColor : "rgba(220,220,220,1)",
+                pointStrokeColor : "#fff",
+                pointHighlightFill : "#fff",
+                pointHighlightStroke : "rgba(220,220,220,1)",
+                data: []
+            },
+            {
+                label: "Heap used dataset",
+                fillColor : "rgba(151,187,205,0.2)",
+                strokeColor : "rgba(151,187,205,1)",
+                pointColor : "rgba(151,187,205,1)",
+                pointStrokeColor : "#fff",
+                pointHighlightFill : "#fff",
+                pointHighlightStroke : "rgba(151,187,205,1)",
+                data: []
+            }
+        ]
+    }
+
+    var listeners = []
+
+    function LineChart(canvas, attr1, attr2) {
+
+		this.ctx = document.getElementById(canvas).getContext("2d");
+
+		this.chart = new Chart(this.ctx).Line(lineChartData);
+
+        this.length = function() {
+            return this.chart.datasets[0].points.length
+        }
+
+        this.addData = function (data, label) { this.chart.addData(data, label) }
+
+        this.removeData = function () { this.chart.removeData() }
+
+        this.init = true
+
+        this.onMetrics = function (metrics) {
+            if (this.length() > 10) {
+                this.removeData()
+            }
+
+            var val1 = attr1(metrics)
+            var val2 = attr2(metrics)
+            var time = now()
+            this.addData([val1, val2], time)
+
+            if (this.init) {
+                for (var i = 0; i < 10; i++) {
+                    this.addData([val1, val2], time)
+                }
+                this.init = false
+            }
+        }
+
+        listeners.push(this)
+    }
+
+    var heapChart = new LineChart("heap",
+        function(metrics) { return metrics["heap.committed"] / 1024 },
+        function(metrics) { return metrics["heap.used"] / 1024 }
+    )
+
+    var classChart = new LineChart("threads",
+        function(metrics) { return metrics["threads"] },
+        function(metrics) { return metrics["threads.daemon"] }
+    )
+
+    function onMetrics(metrics) {
+        for (var i in listeners) {
+            listeners[i].onMetrics(metrics)
+        }
+    }
+
+    function fetchMetrics() {
+    	$.get("/manage/metrics", onMetrics)
+    }
+
+    setInterval(fetchMetrics, 3000)
+
+</script>
+
+</body>
+</html>
