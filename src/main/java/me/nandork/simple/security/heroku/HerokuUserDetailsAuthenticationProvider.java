@@ -1,4 +1,4 @@
-package me.nandork.simple.security;
+package me.nandork.simple.security.heroku;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationServiceException;

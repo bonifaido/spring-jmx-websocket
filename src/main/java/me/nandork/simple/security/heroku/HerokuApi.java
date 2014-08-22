@@ -1,6 +1,6 @@
-package me.nandork.simple.security;
+package me.nandork.simple.security.heroku;
 
-import me.nandork.simple.security.model.Authorization;
+import me.nandork.simple.security.heroku.model.Authorization;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
